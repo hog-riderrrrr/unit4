@@ -1,7 +1,11 @@
 int numTree = 20;
 int numUFO = 10;
+float houseHeight;
+float roofHeight;
+float randomR = random(0, 255);
 float flipcoin = random(0, 1);
 boolean scene2;
+
 
 
 void setup() {
@@ -42,14 +46,33 @@ void setup() {
     }
   }
   if (scene2 == false) {
-  fill(100, 100, 255);
-  rect(0, 0, 800, 300);
+    fill(#00C5FF);
+    rect(0, 0, 800, 300);
     for (int k = 0; k < 7; k++) {
       pushMatrix();
       float cloudX = random(50, 770);
       float cloudY = random(30, 120);
       translate(cloudX, cloudY);
       drawCloud();
+      popMatrix();
+    }
+    for (int i = 0; i < numTree; i++) {
+      pushMatrix();
+      float treeX = random(40, 760);
+      float treeY = random(320, 450);
+      translate(treeX, treeY);
+      drawtree();
+      popMatrix();
+      
+    }
+    for (int k = 0; k < 8; k++) {
+      pushMatrix();
+      float houseX = random(40, 760);
+      float houseY = random(450, 520);
+      houseHeight = random(55, 90);
+      roofHeight = random(-50, -20);
+      translate(k * 100 + 50, houseY);
+      drawHouse();
       popMatrix();
     }
   }
@@ -71,11 +94,17 @@ void drawtree() {
 
 
 void drawUFO() {
+  int dotY = 17;
+  noStroke();
   scale(1.25);
   fill(5, 236, 255);
   ellipse(0, 0, 30, 30);
   fill(170);
   ellipse(0, 15, 75, 27);
+  fill(#FAFF00);
+  ellipse(0, dotY, 5, 5);
+  ellipse(-15, dotY, 5, 5);
+  ellipse(15, dotY, 5, 5);
 }
 
 void drawCloud() {
@@ -89,4 +118,30 @@ void drawCloud() {
   ellipse(10, 5, 20, 20);
   ellipse(9, -7, 21, 21);
   ellipse(30, 0, 19, 19);
+}
+
+void drawHouse() {
+  stroke(0);
+  houseBody();
+  doorsandwindows();
+  roof();
+}
+
+void houseBody() {
+  rect(0, 0, 40, houseHeight);
+}
+
+void doorsandwindows() {
+  fill(#00FFEC);
+  square(7, 10, 10);
+  square(23, 10, 10);
+  rect(15, houseHeight - 30, 10, 30);
+  fill(0);
+  circle(23, houseHeight - 15, 2);
+}
+
+void roof() {
+  fill(255, 255, 0);
+  rect(5, roofHeight - 8, 8, roofHeight * -1);
+  triangle(0, 0, 20, roofHeight, 40, 0);
 }
